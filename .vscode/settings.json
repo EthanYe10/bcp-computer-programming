@@ -1,0 +1,7 @@
+{
+    "terminal.integrated.shellArgs.osx":[
+        "-l",
+        "-c",
+        "alias rungame='.venv/bin/python my_game/main.py'; zsh"
+    ]
+}
