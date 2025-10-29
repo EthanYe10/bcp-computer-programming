@@ -43,6 +43,10 @@ class Game:
     def load_data(self):
         self.game_folder = path.dirname(__file__)
         self.map = Map(path.join(self.game_folder, "levels/level1.txt"))
+        self.img_folder = path.join(self.game_folder, "images")
+        self.player_image = path.join(self.img_folder, "player.png")
+        
+        
 
     def new(self):
         self.load_data()

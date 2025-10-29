@@ -1,4 +1,3 @@
-from settings import *
 import pygame as pg
 
 # map class loads map from text file and sets dimensions
