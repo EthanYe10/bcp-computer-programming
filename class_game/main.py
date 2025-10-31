@@ -32,11 +32,13 @@ class Game:
         self.clock = pg.time.Clock()  # clock to control frame rate
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))  # set screen dimensions
         self.score = 0  # initialize score
-        # this caption was made using ChatGPT
+        
+        # this caption made using ChatGPT
         pg.display.set_caption(
             "Ethan Ye's amazing breathtaking captivating dazzling exceptional fantastic glorious heroic incredible jaw-dropping knockout legendary marvelous noteworthy outstanding phenomenal quality remarkable stunning tremendous unbelievable visionary wonderful exceptional youthful zestful game"
         )
         self.playing = True  # game loop boolean
+        
 
     # sets up game folder dir using current folder containing THIS file
     # gives the game class a map property that uses Map class to parse level1.txt file

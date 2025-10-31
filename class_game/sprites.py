@@ -8,10 +8,11 @@ import pygame as pg
 from pygame.sprite import Sprite
 from settings import *
 from main import Game
+from os import path
 
 # from random import randint
 import math
-from utils import Countdown
+from utils import *
 import random
 
 from enum import Enum, auto
@@ -77,7 +78,32 @@ class Player(Sprite):  # player inherits from pygame Sprite class
         # initialized a Countdown object for damage cooldown, set at 1000 ms
         self.damageCooldown = Countdown(1000)
         self.shootCountdown: Countdown = Countdown(250)
+        
+        self.image = SpriteSheet(path.join(self.game.img_folder, "player.png"))
+        self.walking = False
+        self.jumping = False
+        self.last_update = 0
 
+    def load_images (self):
+        self.standing_frames = [self.spritesheet.get_image(0, 0, 32, 32),
+                                self.spritesheet.get_image(32, 0, 32, 32)]
+
+        for frame in self.standing_frames:
+            frame.set_colorkey(BLACK)
+    
+    def animate(self):
+        now = pg.time.get_ticks()
+        if not self.walking and self.walking:
+            if now-self.last_update > 350:
+                print(now)
+                self.last_update = now
+                self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
+                bottom = self.rect.bottom
+                self.image = self.standing_frames[self.current_frame]
+                self.rect = self.image.get_rect()
+                self.rect.bottom = bottom
+        
+    
     # calculate heading of player based on movement direction
 
     def calc_heading(self) -> float:
@@ -200,12 +226,6 @@ class Player(Sprite):  # player inherits from pygame Sprite class
         # handle collisions with mobs and coins
         self.collide_with_stuff(self.game.all_mobs, False)
         self.collide_with_stuff(self.game.coins, True)
-
-        # change color based whether player is immmune or not
-        if not self.damageCooldown.running():
-            self.image.fill(BLUE)
-        else:
-            self.image.fill(RED)
 
 
 # sprite that acts as a space invader
