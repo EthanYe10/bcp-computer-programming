@@ -2,6 +2,7 @@ import pygame as pg
 from os import path
 from settings import *
 
+# map class loads map from text file and sets dimensions
 class Map:
     # initialize map object from text file
     def __init__(self, filename):
@@ -21,3 +22,52 @@ class Map:
             self.tileheight = len(self.data)
             self.width = self.tilewidth * 32
             self.height = self.tileheight * 32
+    
+    def load_map(self, filename):
+        for line in self.data:
+            for tile in line:
+                if tile == 'P':
+                    print("Player found")
+                    # init player
+                if tile == '1':
+                    print("Wall found")
+                    # init wall
+                if tile == '.':
+                    print("Empty space found")
+                    # do nothing
+        
+# countdown timer class 
+# example usage:
+# countdown = Countdown(5000)  # 5 seconds
+# if damaged:
+#     countdown.start()
+#     invincible = true
+# if countdown.running():
+#     # player is invincible
+class Countdown:
+    def __init__(self, time):
+        self.time = time
+        self.start_time = 0
+        self.isRunning = False
+        
+    def start(self):
+        self.start_time = pg.time.get_ticks()
+        self.isRunning = True
+    
+    def running(self):
+        now = pg.time.get_ticks()
+        if now - self.start_time >= self.time:
+            self.isRunning = False
+        return self.isRunning
+            
+        
+class SpriteSheet:
+    def __init__(self, filename):
+        self.spritesheet = pg.image.load(filename).convert()
+
+    def get_image(self, x, y, width, height):
+        image = pg.Surface((width, height))
+        image.blit(self.spritesheet, (0,0), (x,y, width, height))
+        image = pg.transform.scale(image, (width // 2, height // 2))
+        return image
+    
